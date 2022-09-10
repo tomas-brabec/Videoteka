@@ -69,5 +69,20 @@ namespace Videoteka.Controllers
             ViewData["GenreList"] = new SelectList(_context.Genres, "Id", "Name", movie.GenreId);
             return View(movie);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie != null)
+            {
+                _context.Movies.Remove(movie);
+            }
+
+            await _context.SaveChangesAsync();
+            //TODO
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
