@@ -4,12 +4,14 @@
     ViewData["Title"] = "Seznam filmů";
 }
 
-<h1>Seznam filmů</h1>
+
+<h1>@ViewData["Title"]</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" class="btn btn-primary">Přidat film</a>
 </p>
-<table class="table">
+
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -40,11 +42,11 @@
                 @Html.DisplayFor(modelItem => item.Genre!.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Rating)
+                @Html.DisplayFor(modelItem => item.Rating)/5
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+            <td class="text-end">
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-secondary btn-sm me-2">Upravit</a>
+                @await Html.PartialAsync("~/Views/Movie/_DeleteMovieForm.cshtml", item)
             </td>
         </tr>
 }
