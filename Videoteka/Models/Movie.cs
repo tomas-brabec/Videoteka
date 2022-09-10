@@ -11,7 +11,7 @@ namespace Videoteka.Models
         [Range(1, 9999)]
         public int ReleaseYear { get; set; }
         public int GenreId { get; set; }
-        public Genre Genre { get; set; } = null!;
+        public Genre? Genre { get; set; } = null!;
         [Range(0, 5)]
         public int Rating { get; set; }
     }
