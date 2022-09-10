@@ -40,5 +40,34 @@ namespace Videoteka.Controllers
             ViewData["GenreList"] = new SelectList(await _context.Genres.ToListAsync(), "Id", "Name", movie.GenreId);
             return View(movie);
         }
+
+        public async Task<IActionResult> Edit(int id)
+        {
+            var movie = await _context.Movies.FindAsync(id);
+            if (movie == null)
+            {
+                return NotFound();
+            }
+            ViewData["GenreList"] = new SelectList(_context.Genres, "Id", "Name", movie.GenreId);
+            return View(movie);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseYear,GenreId,Rating")] Movie movie)
+        {
+            if(id != movie.Id)
+                return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(movie);
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction(nameof(Index));
+            }
+            ViewData["GenreList"] = new SelectList(_context.Genres, "Id", "Name", movie.GenreId);
+            return View(movie);
+        }
     }
 }
