@@ -37,11 +37,15 @@ namespace Videoteka.Data
 
         private static void LoadMovies(MoviesDbContext context)
         {
+            var scifi = context.Genres.First(g => g.Name == "Sci-Fi");
+            var action = context.Genres.First(g => g.Name == "Akční");
+            var comedy = context.Genres.First(g => g.Name == "Komedie");
+
             context.Movies.AddRange(
-                new Movie() { Title = "Vetřelec", ReleaseYear = 1979, GenreId = 6, Rating = 5 },
-                new Movie() { Title = "Blade Runner 2049 ", ReleaseYear = 2017, GenreId = 6, Rating = 4 },
-                new Movie() { Title = "John Wick", ReleaseYear = 2014, GenreId = 9, Rating = 5 },
-                new Movie() { Title = " Babovřesky", ReleaseYear = 2013, GenreId = 2, Rating = 0 }
+                new Movie() { Title = "Vetřelec", ReleaseYear = 1979, GenreId = scifi.Id, Rating = 5 },
+                new Movie() { Title = "Blade Runner 2049 ", ReleaseYear = 2017, GenreId = scifi.Id, Rating = 4 },
+                new Movie() { Title = "John Wick", ReleaseYear = 2014, GenreId = action.Id, Rating = 5 },
+                new Movie() { Title = " Babovřesky", ReleaseYear = 2013, GenreId = comedy.Id, Rating = 0 }
                 );
 
             context.SaveChanges();
