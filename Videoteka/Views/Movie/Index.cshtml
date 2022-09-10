@@ -11,6 +11,19 @@
     <a asp-action="Create" class="btn btn-primary">Přidat film</a>
 </p>
 
+@if (TempData["Succes"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Succes"]
+    </div>
+}
+@if (TempData["Delete"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Delete"]
+    </div>
+}
+
 <table class="table table-striped">
     <thead>
         <tr>

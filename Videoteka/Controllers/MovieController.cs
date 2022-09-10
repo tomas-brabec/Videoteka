@@ -15,7 +15,7 @@ namespace Videoteka.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index() 
+        public async Task<IActionResult> Index()
         {
             return View(await _context.Movies.Include(m => m.Genre).ToListAsync());
         }
@@ -34,6 +34,8 @@ namespace Videoteka.Controllers
             {
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
+                TempData["Succes"] = $"Do vaší videotéky byl úspěšně přidán záznam o filum: \"{movie.Title}\"";
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -56,13 +58,14 @@ namespace Videoteka.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,ReleaseYear,GenreId,Rating")] Movie movie)
         {
-            if(id != movie.Id)
+            if (id != movie.Id)
                 return NotFound();
 
             if (ModelState.IsValid)
             {
                 _context.Update(movie);
                 await _context.SaveChangesAsync();
+                TempData["Succes"] = $"Záznam o filum: \"{movie.Title}\" byl aktualizován";
 
                 return RedirectToAction(nameof(Index));
             }
@@ -78,6 +81,7 @@ namespace Videoteka.Controllers
             if (movie != null)
             {
                 _context.Movies.Remove(movie);
+                TempData["Delete"] = $"Film: \"{movie.Title}\" byl smazán";
             }
 
             await _context.SaveChangesAsync();
