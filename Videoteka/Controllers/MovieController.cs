@@ -34,7 +34,7 @@ namespace Videoteka.Controllers
             {
                 _context.Add(movie);
                 await _context.SaveChangesAsync();
-                TempData["Succes"] = $"Do vaší videotéky byl úspěšně přidán záznam o filum: \"{movie.Title}\"";
+                TempData["Succes"] = $"Do vaší videotéky byl úspěšně přidán záznam o filmu: \"{movie.Title}\"";
 
                 return RedirectToAction(nameof(Index));
             }
@@ -65,7 +65,7 @@ namespace Videoteka.Controllers
             {
                 _context.Update(movie);
                 await _context.SaveChangesAsync();
-                TempData["Succes"] = $"Záznam o filum: \"{movie.Title}\" byl aktualizován";
+                TempData["Succes"] = $"Záznam o filmu: \"{movie.Title}\" byl aktualizován";
 
                 return RedirectToAction(nameof(Index));
             }
