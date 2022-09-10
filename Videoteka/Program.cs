@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Videoteka.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddDbContext<MoviesDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("MsSqlConnection")));
 
 builder.Services.AddControllersWithViews();
 
